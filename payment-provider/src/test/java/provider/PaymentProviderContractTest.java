@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @RunWith(SpringRestPactRunner.class)
 @Provider("payment_provider")
-@PactFolder("src/test/pacts")
+@PactFolder("src/test/resources")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PaymentProviderContractTest {
 
