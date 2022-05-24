@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.client.HttpClientErrorException;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -52,7 +53,7 @@ public class PaymentServiceClientTest {
 
         String paymentAsJson = new Gson().toJson(payment);
 
-        wireMockServer.stubFor(WireMock.get(WireMock.urlEqualTo(String.format("/payment/%s", ORDER_ID)))
+        wireMockServer.stubFor(get(urlEqualTo(String.format("/payment/%s", ORDER_ID)))
                 .willReturn(aResponse().withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                         .withBody(paymentAsJson)));
 
@@ -68,7 +69,7 @@ public class PaymentServiceClientTest {
     @Test
     public void getPayment_nonexistentOrderId_shouldThrowException() {
 
-        wireMockServer.stubFor(WireMock.get(WireMock.urlEqualTo("/payment/00000000-0000-0000-0000-000000000000"))
+        wireMockServer.stubFor(get(urlEqualTo("/payment/00000000-0000-0000-0000-000000000000"))
                 .willReturn(aResponse().withStatus(404)));
 
         assertThatThrownBy(
@@ -80,7 +81,7 @@ public class PaymentServiceClientTest {
     @Test
     public void getPayment_invalidOrderId_shouldThrowException() {
 
-        wireMockServer.stubFor(WireMock.get(WireMock.urlEqualTo("/payment/this_is_not_a_valid_payment_id"))
+        wireMockServer.stubFor(get(urlEqualTo("/payment/this_is_not_a_valid_payment_id"))
                 .willReturn(aResponse().withStatus(400)));
 
         assertThatThrownBy(

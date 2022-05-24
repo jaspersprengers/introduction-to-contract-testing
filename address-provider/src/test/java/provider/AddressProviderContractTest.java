@@ -17,7 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @PactFolder("src/test/pacts")
 //@PactBroker(url="https://ota.pactflow.io", authentication = @PactBrokerAuth(token = "HbtH0tZq7CU4d18JlKR2kA"))
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ContractTest {
+public class AddressProviderContractTest {
 
     @TestTarget
     public final Target target = new SpringBootHttpTarget();
